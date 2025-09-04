@@ -2,7 +2,7 @@ import pizzaImg from '../assets/Header.jpg'
 
 function Header() {
     return (
-        <header className="relative flex flex-col items-center text-center justify-center h-68">
+        <header className="relative flex flex-col items-center text-center justify-center h-68 w-full">
             <h1 className="text-3xl md:text-5xl text-white font-bold z-1">
                 ¡Pizzería Mamma Mia!
             </h1>

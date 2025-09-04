@@ -2,12 +2,13 @@ function CardPizza({name, price, ingredients= [], img= ""}) {
     return (
         <div className="flex flex-col gap-2 my-3 items-center">
             <div className="border border-gray-200">
-                <img src={img} alt={name} className="w-70"></img>
+                <img src={img} alt={name} className="w-72"></img>
                 <h3 className="p-2 text-xl">Pizza {name}</h3>
-            
                 <div className="flex flex-col items-center p-2 border-y border-gray-200 gap-2">
                     <h4 className="text-gray-400">Ingredientes:</h4>
-                    <p className="text-xs">{ingredients.join(", ")}</p>
+                    <p className="text-xs">{ingredients.map((ingredient, id) => (
+                        <li key={id}>{ingredient}</li>
+                    ))}</p>
                 </div>
                 <div className="text-center">
                     <h2 className="p-3 font-bold">Precio: {price?.toLocaleString('es-Cl', {style: 'currency', currency: 'CLP'})}</h2>
@@ -18,7 +19,6 @@ function CardPizza({name, price, ingredients= [], img= ""}) {
                 </div>
             </div>
         </div>
-    
     )
 }
 
