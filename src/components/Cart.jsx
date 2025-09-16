@@ -4,12 +4,12 @@ import { useState } from 'react';
 
 function ProductCard({name, price, count, img, onIncrease, onDecrease}) {
     return(
-        <div className='flex flex-row gap-2 justify-between'>
-            <div className='flex gap-2 mb-6'>
+        <div className='flex flex-row justify-between border-2 border-red-300 rounded p-3 mb-2'>
+            <div className='flex gap-2 items-center'>
                 <img src={img} alt={name} className='w-16 h-12'></img>
                 <p className='text-lg capitalize'>{name}</p>
             </div>
-            <div className='flex gap-4 items-center mb-8'>
+            <div className='flex gap-4 items-center'>
                 <p className='font-medium'>{price?.toLocaleString('es-Cl', {style: 'currency', currency: 'CLP'})}</p>
                 <button onClick={onDecrease} className='border-red-500 border rounded w-7 h-8 text-red-500 cursor-pointer'>-</button>
                 <p className='font-bold'>{count}</p>

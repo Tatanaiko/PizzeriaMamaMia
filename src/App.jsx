@@ -1,9 +1,10 @@
 import Navbar from './components/Navbar'
-// import Home from './components/Home' 
+import Home from './components/Home' 
 import Footer from './components/Footer'
+import Pizza from './components/Pizza'
 import Cart from './components/Cart'
-// import Register from './components/Register'
-// import LoginPage from './components/LoginPage'
+import Register from './components/Register'
+import LoginPage from './components/LoginPage'
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
         {/* <Home /> */}
         {/* <Register /> */}
         {/* <LoginPage /> */}
-        <Cart />
+        {/* <Cart /> */}
+        <Pizza />
       </main>
       <Footer />
     </div>

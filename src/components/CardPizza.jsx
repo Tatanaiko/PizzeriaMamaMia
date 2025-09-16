@@ -1,6 +1,6 @@
-function CardPizza({name, price, ingredients= [], img= ""}) {
+function CardPizza({name, price, ingredients= [], img= "", description}) {
     return (
-        <div className="flex flex-col gap-2 my-3 items-center">
+        <div className="flex flex-col gap-2 my-3">
             <div className="border border-gray-200">
                 <img src={img} alt={name} className="w-72"></img>
                 <h3 className="p-2 text-xl">Pizza {name}</h3>
@@ -10,6 +10,11 @@ function CardPizza({name, price, ingredients= [], img= ""}) {
                         <li key={id}>{ingredient}</li>
                     ))}</p>
                 </div>
+                {description && (
+                    <div className="flex p-2 border-y border-gray-200 gap-2">
+                        <p className="text-sm">{description}</p>
+                    </div>
+                )}
                 <div className="text-center">
                     <h2 className="p-3 font-bold">Precio: {price?.toLocaleString('es-Cl', {style: 'currency', currency: 'CLP'})}</h2>
                     <div className="flex justify-around pb-3">
