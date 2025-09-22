@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { validateEmail, validatePassword, validateConfirmPassword } from "./Validations";
+import { validateEmail, validatePassword, validateConfirmPassword } from "../components/Validations";
 
 function Register() {
 

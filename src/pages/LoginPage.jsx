@@ -1,4 +1,4 @@
-import { validateEmail, validatePassword } from "./Validations"
+import { validateEmail, validatePassword } from "../components/Validations"
 import { useState } from "react";
 
 function LoginPage() {
