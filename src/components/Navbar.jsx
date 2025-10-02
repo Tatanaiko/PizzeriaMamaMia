@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartProvider";
+import { useContext } from "react";
 
 function Navbar() {
-    const total = 25000;
-    const token = true;
+    const {totalPrice} = useContext(CartContext); 
+    const token = false;
     return (
         <nav className="flex gap-2 md:text-xl items-center md:justify-between w-full p-2 text-xs bg-gray-950 text-white justify-center ">
             <h1 className="hidden md:block">Pizzería Mamma Mía!</h1>
@@ -25,7 +27,7 @@ function Navbar() {
                 </>
                 )}
                 <li>
-                    <Link to="/cart" className="border border-cyan-600 rounded px-3 py-1">🛒 Total: {total.toLocaleString('es-Cl', {style: 'currency', currency: 'CLP'})}</Link>
+                    <Link to="/cart" className="border border-cyan-600 rounded px-3 py-1">🛒 Total: {totalPrice().toLocaleString('es-Cl', {style: 'currency', currency: 'CLP'})}</Link>
                 </li> 
             </ul>
         </nav> 

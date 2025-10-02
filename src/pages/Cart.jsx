@@ -1,5 +1,5 @@
-import { pizzaCart } from '../components/pizzas';
-import { useState } from 'react';
+import { CartContext } from '../context/CartProvider'
+import { useContext } from 'react'
 
 
 function ProductCard({name, price, count, img, onIncrease, onDecrease}) {
@@ -20,22 +20,7 @@ function ProductCard({name, price, count, img, onIncrease, onDecrease}) {
 }
 
 function Cart() {
-    const [products, setProducts] = useState(pizzaCart);
-
-    const increase = (id) => {
-        setProducts(products.map(p => p.id === id ? {...p, count: p.count + 1} : p
-        ))};
-
-    const decrease = (id) => {
-        setProducts(products.map(p => p.id === id ? {...p, count: p.count - 1} : p).filter(p => p.count > 0)
-    
-    )};
-
-    const totalPrice = () => {
-        return products.reduce((acum, p) => acum + p.price * p.count, 0);
-    }
-
-
+    const {products, increase, decrease, totalPrice} = useContext(CartContext)
     return (
         <div className='flex-col w-full max-w-2xl mx-auto p-8 items-center'> 
             <h2 className='text-xl mb-4 font-medium'>Detalles del pedido:</h2>
@@ -52,7 +37,6 @@ function Cart() {
             )))}
             <h2 className='text-2xl font-bold mb-6'>Total:{totalPrice().toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}</h2>
             <button className='border rounded bg-black text-white w-15 h-8 cursor-pointer'>Pagar</button>
-            
         </div>
     )
 }
