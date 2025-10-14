@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartProvider";
+import { UserContext } from "../context/UserProvider";
 import { useContext } from "react";
 
 function Navbar() {
     const {totalPrice} = useContext(CartContext); 
-    const token = false;
+    const {token, logout} = useContext(UserContext);
+
     return (
         <nav className="flex gap-2 md:text-xl items-center md:justify-between w-full p-2 text-xs bg-gray-950 text-white justify-center ">
             <h1 className="hidden md:block">Pizzería Mamma Mía!</h1>
@@ -14,7 +16,7 @@ function Navbar() {
                 {token ? (
                 <>
                     <Link to="/profile" className="border rounded px-3 py-1 cursor-pointer">Profile </Link>
-                    <li><button className="border rounded px-3 py-1 cursor-pointer">Logout</button></li>
+                    <li><button className="border rounded px-3 py-1 cursor-pointer" onClick={logout}>Logout</button></li>
                 </>
                 ) : (
                 <>

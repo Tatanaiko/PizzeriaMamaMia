@@ -1,5 +1,6 @@
 import { CartContext } from '../context/CartProvider'
 import { useContext } from 'react'
+import { UserContext } from '../context/UserProvider';
 
 
 function ProductCard({name, price, count, img, onIncrease, onDecrease}) {
@@ -20,7 +21,9 @@ function ProductCard({name, price, count, img, onIncrease, onDecrease}) {
 }
 
 function Cart() {
-    const {products, increase, decrease, totalPrice} = useContext(CartContext)
+    const {products, increase, decrease, totalPrice} = useContext(CartContext);
+    const {token, logout} = useContext(UserContext);
+
     return (
         <div className='flex-col w-full max-w-2xl mx-auto p-8 items-center'> 
             <h2 className='text-xl mb-4 font-medium'>Detalles del pedido:</h2>
@@ -36,7 +39,11 @@ function Cart() {
             />
             )))}
             <h2 className='text-2xl font-bold mb-6'>Total:{totalPrice().toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}</h2>
-            <button className='border rounded bg-black text-white w-15 h-8 cursor-pointer'>Pagar</button>
+            <button className= {`border rounded w-15 h-8 ${
+                token ? 'bg-black text-white cursor-pointer' : 'bg-gray-400 text-gray-700 cursor-not-allowed' 
+            }`} disabled={!token}
+            >Pagar</button>
+            
         </div>
     )
 }

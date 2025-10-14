@@ -1,6 +1,17 @@
 import userImg from '../assets/descarga.jpg'
+import { useContext } from 'react'
+import { UserContext } from '../context/UserProvider'
+import { useNavigate } from 'react-router-dom';
 
 function User() {
+    const {logout} = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    }
+
     return (
         <div className='min-h-screen w-full bg-black flex items-center justify-center text-white'>
             <div className='flex flex-col gap-3 w-full max-w-md p-5'>
@@ -30,9 +41,8 @@ function User() {
                             <p className="text-2xl">🛒</p>
                             <p>Mi carrito</p>
                         </div>
-                        <button className='cursor-pointer border-2 mt-8 border-white rounded justify-center font-bold text-white p-3 text-3xl hover:bg-white hover:text-black transition'>Cerrar sesión</button>
+                        <button onClick={handleLogout} className='cursor-pointer border-2 mt-8 border-white rounded justify-center font-bold text-white p-3 text-3xl hover:bg-white hover:text-black transition'>Cerrar sesión</button>
                     </div>
-               
             </div>
         </div>
     )
