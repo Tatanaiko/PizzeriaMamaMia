@@ -1,7 +1,11 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { validateEmail, validatePassword, validateConfirmPassword } from "../components/Validations";
+import { UserContext } from "../context/UserProvider";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+    const { register } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -27,24 +31,25 @@ function Register() {
 
     const validateForm = (data) => {
         let newError = {};
-
         newError.email = validateEmail(data.email);
         newError.password = validatePassword(data.password);
         newError.confirmPassword = validateConfirmPassword(data.password, data.confirmPassword);
-        
         setError(newError);
-
         const complete = Object.values(newError).every(err => err === "");
-
         return complete;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         const valid = validateForm(formData);
-        if (valid){
-            setSuccess("Registro exitoso");
-            cleanForm();
+        if (valid) {
+            try {
+                await register(formData);
+                setSuccess("Registro exitoso");
+                navigate("/");
+            } catch (error) {
+                console.error("error", error.message)
+            }
         }
     }
 
@@ -105,7 +110,7 @@ function Register() {
                 className="bg-blue-400 text-white p-1 rounded"        
             >Register</button>
             {success && (
-                <span className="text-green-500 text-xs text-center">Registro exitoso</span>
+                <span className="text-red-500 text-xs text-center">Registro exitoso</span>
             )}
         </form>
     </div>

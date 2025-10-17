@@ -20,7 +20,7 @@ function AppRoutes() {
   return (
     <div className='flex flex-col min-h-screen'>
             <Navbar />
-            <main className='flex flex-col flex-grow items-center'>
+            <main className='flex flex-col flex-grow items-center justify-center'>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/register" element={token ? <Navigate to="/" replace /> : <Register />} />
@@ -39,13 +39,13 @@ function AppRoutes() {
 
 function App() {
   return (
-    <UserProvider>
-      <CartProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </CartProvider>
-    </UserProvider>
+    <BrowserRouter>
+      <UserProvider>
+        <CartProvider>
+            <AppRoutes />
+        </CartProvider>
+      </UserProvider>
+    </BrowserRouter>
   )
 }
 

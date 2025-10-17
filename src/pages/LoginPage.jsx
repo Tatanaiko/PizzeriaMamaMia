@@ -1,7 +1,9 @@
 import { validateEmail, validatePassword } from "../components/Validations"
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext} from "../context/UserProvider";
 
 function LoginPage() {
+    const { login } = useContext(UserContext);
 
     const [formData, setFormData] = useState({
         email:'',
@@ -39,12 +41,17 @@ function LoginPage() {
     };
 
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const valid = validateForm(formData);
         if (valid){
-            setSuccess("Login exitoso");
-            cleanForm();
+            try {
+                await login(formData);
+                setSuccess("Login exitoso");
+                cleanForm();
+            } catch (error) {
+                console.error("error", error.message)
+            }
         }
     }
 
@@ -87,12 +94,13 @@ function LoginPage() {
                 ></input>
                 {error.password && <span className="text-red-500 text-xs">{error.password}</span>}
             </div>
+                {error.general && <span className="text-red-500 text-xs text-center">{error.general}</span>}
             <button onClick={handleSubmit}
                 type="submit"
                 className="bg-blue-400 text-white p-1 rounded"        
             >Log In</button>
             {success && (
-                <span className="text-green-500 text-xs text-center">Logeo exitoso</span>
+                <span className="text-red-500 text-xs text-center">No existe el usuario, debe registrarse</span>
             )}
         </form>
     </div>

@@ -6,6 +6,7 @@ import { useContext } from "react";
 function Navbar() {
     const {totalPrice} = useContext(CartContext); 
     const {token, logout} = useContext(UserContext);
+    console.log("Navbar token:", token);
 
     return (
         <nav className="flex gap-2 md:text-xl items-center md:justify-between w-full p-2 text-xs bg-gray-950 text-white justify-center ">

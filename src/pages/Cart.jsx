@@ -1,6 +1,7 @@
 import { CartContext } from '../context/CartProvider'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from '../context/UserProvider';
+import { Modal } from '../components/Modal';
 
 
 function ProductCard({name, price, count, img, onIncrease, onDecrease}) {
@@ -21,8 +22,35 @@ function ProductCard({name, price, count, img, onIncrease, onDecrease}) {
 }
 
 function Cart() {
-    const {products, increase, decrease, totalPrice} = useContext(CartContext);
-    const {token, logout} = useContext(UserContext);
+    const {products, increase, decrease, totalPrice, checkout} = useContext(CartContext);
+    const {token} = useContext(UserContext);
+    const [modalMsg, setModalMsg] = useState("");
+
+    const showModal = (msg) => {
+        setModalMsg(msg);
+    };
+
+    const handleClose = () => setModalMsg("");
+
+
+    const handleCheckout = async () => {
+        if (!token) {
+            showModal("Debes iniciar sesión para realizar la compra");
+            return;
+        }
+        if (products.length === 0) {
+            showModal("El carrito está vacío");
+            return;
+        }
+        try {
+            const res = await checkout(token);
+            if(res.error) showModal(res.error);
+            else showModal("Compra realizada con éxito!");
+        } catch (error) {
+            showModal("Ocurrió un error al realizar la compra");
+            
+        }
+    }
 
     return (
         <div className='flex-col w-full max-w-2xl mx-auto p-8 items-center'> 
@@ -39,11 +67,12 @@ function Cart() {
             />
             )))}
             <h2 className='text-2xl font-bold mb-6'>Total:{totalPrice().toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}</h2>
-            <button className= {`border rounded w-15 h-8 ${
+            <button onClick={handleCheckout} className= {`border rounded w-15 h-8 ${
                 token ? 'bg-black text-white cursor-pointer' : 'bg-gray-400 text-gray-700 cursor-not-allowed' 
-            }`} disabled={!token}
-            >Pagar</button>
-            
+            }`}
+            >Pagar</button> 
+
+            {modalMsg && <Modal msg={modalMsg} onClose={handleClose} />}
         </div>
     )
 }
